@@ -1,3 +1,6 @@
+mod day01;
+
 fn main() {
-    println!("Hello, world!");
+    day01::solution::part1();
+    day01::solution::part2();
 }
