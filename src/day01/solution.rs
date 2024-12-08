@@ -1,16 +1,6 @@
 use std::collections::HashMap;
-use std::fs::File;
-use std::io;
-use std::io::{BufRead, BufReader};
-
-fn load_file(filename: &str) -> io::Result<Vec<String>> {
-    let file = File::open(filename)?;
-    let reader = BufReader::new(file);
-
-    let lines: Vec<String> = reader.lines().filter_map(Result::ok).collect();
-
-    Ok(lines)
-}
+#[path = "../common.rs"]
+mod common;
 
 fn unzip_vectors(lines: Vec<String>) -> (Vec<i32>, Vec<i32>) {
     let (sources, destinations): (Vec<i32>, Vec<i32>) = lines
@@ -30,7 +20,7 @@ fn unzip_vectors(lines: Vec<String>) -> (Vec<i32>, Vec<i32>) {
 #[allow(dead_code)]
 pub fn part1() {
     let filename = "src/day01/input.txt";
-    let lines = load_file(filename).expect("Unable to load input file.");
+    let lines = common::load_lines(filename).expect("Unable to load input file.");
 
     let (mut sources, mut destinations) = unzip_vectors(lines);
 
@@ -45,9 +35,10 @@ pub fn part1() {
     println!("Distance: {}", distance);
 }
 
+#[allow(dead_code)]
 pub fn part2() {
     let filename = "src/day01/input.txt";
-    let lines = load_file(filename).expect("Unable to load input file.");
+    let lines = common::load_lines(filename).expect("Unable to load input file.");
 
     let (mut sources, mut destinations) = unzip_vectors(lines);
     let mut destination_counts: HashMap<i32, i32> = HashMap::new();
